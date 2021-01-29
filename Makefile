@@ -8,11 +8,10 @@ clean:
 	rm -rf target/*
 
 build: # testing
-	go build -o target/ec2-scheduled-stop main.go
+	go build -o target/main main.go
 
 build-linux:
-	GOOS=linux
-	go build -o target/ec2-scheduled-stop
+	GOOS=linux GOARCH=amd64 go build -o target/main
 
-package-lambda: build
-	zip -r -j target/function.zip target/ec2-scheduled-stop
+package-lambda: build-linux
+	zip -r -j target/function.zip target/main
